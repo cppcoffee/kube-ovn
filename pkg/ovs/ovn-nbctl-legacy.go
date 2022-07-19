@@ -454,15 +454,6 @@ func (c LegacyClient) CreateLogicalSwitch(ls, lr, subnet, gateway string, needRo
 		klog.Errorf("create switch %s failed: %v", ls, err)
 		return err
 	}
-
-	if needRouter {
-		ip := util.GetIpAddrWithMask(gateway, subnet)
-		mac := util.GenerateMac()
-		if err := c.createRouterPort(ls, lr, ip, mac); err != nil {
-			klog.Errorf("failed to connect switch %s to router, %v", ls, err)
-			return err
-		}
-	}
 	return nil
 }
 
